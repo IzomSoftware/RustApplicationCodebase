@@ -1,0 +1,5 @@
+[app]
+name = "rust-application-codebase"
+stylized-name = "Rust Application Codebase"
+identifier = "net.izom.rust_application_codebase"
+template-pack = "wry"
