@@ -26,8 +26,9 @@ pub fn init() {
             .format(|formatter, record| {
                 writeln!(
                     formatter,
-                    "[{}] [{}] {}",
+                    "[{}] {} {} {}",
                     record.module_path_static().unwrap_or(""),
+                    record.file().unwrap_or(""),
                     record.level(),
                     record.args()
                 )
