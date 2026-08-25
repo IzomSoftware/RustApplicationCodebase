@@ -3,6 +3,15 @@ target/
 **/*.rs.bk
 Cargo.lock
 
+*/build
+*/*/build
+*/*/*/build
+*/buildSrc
+*/*/buildSrc
+*/*/*/buildSrc
+*/.gradle
+*/*/.gradle
+*/*/*/.gradle
 # cargo-mobile2
 .cargo/
 

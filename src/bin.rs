@@ -7,7 +7,7 @@ pub mod entry_point;
 /// Desktop entry point
 fn main() {
     // PLATFORM SPECIFIC:
-    // I don't know how we're running under mobile phone's here
+    // I don't know how we're running under mobile phones here
     #[cfg(not(any(target_os = "android", target_os = "ios")))]
     {
         entry_point::init();
