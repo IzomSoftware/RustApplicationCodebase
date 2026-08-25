@@ -12,10 +12,9 @@ impl PlatformBuilder for LinuxPlatform {
         // Use x11 backend EVEN IF RUNNING UNDER WAYLAND
         // This is because there would be less bugs &
         // compatibility issues
-        // #[cfg(target_os = "linux")]
-        // unsafe {
-        //     std::env::set_var("GDK_BACKEND", "x11");
-        // }
+        unsafe {
+            std::env::set_var("GDK_BACKEND", "x11");
+        }
     }
     fn setup_window(&self) -> WindowBuilder {
         WindowBuilder::new().with_default_vbox(true)

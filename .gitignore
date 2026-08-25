@@ -6,9 +6,6 @@ Cargo.lock
 */build
 */*/build
 */*/*/build
-*/buildSrc
-*/*/buildSrc
-*/*/*/buildSrc
 */.gradle
 */*/.gradle
 */*/*/.gradle
