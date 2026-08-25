@@ -2,7 +2,7 @@
 
 use tao::{platform::unix::WindowBuilderExtUnix, window::WindowBuilder};
 
-use crate::platform::PlatformBuilder;
+use crate::platform::{DesktopSizeBuilder, PlatformBuilder};
 
 pub struct LinuxPlatform;
 
@@ -16,7 +16,10 @@ impl PlatformBuilder for LinuxPlatform {
             std::env::set_var("GDK_BACKEND", "x11");
         }
     }
+
     fn setup_window(&self) -> WindowBuilder {
-        WindowBuilder::new().with_default_vbox(true)
+        WindowBuilder::new()
+            .with_desktop_default_size()
+            .with_default_vbox(true)
     }
 }

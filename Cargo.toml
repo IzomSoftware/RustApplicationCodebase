@@ -14,10 +14,7 @@ path = "src/bin.rs"
 
 [package.metadata.cargo-android]
 app-activity-name = "net.izom.rust_application_codebase.AndroidActivity"
-app-dependencies = [
-    "androidx.appcompat:appcompat:1.6.1",
-    "com.google.android.material:material:1.8.0",
-]
+app-dependencies = []
 project-dependencies = [ "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21" ]
 app-plugins = [ "org.jetbrains.kotlin.android" ]
 app-permissions = []

@@ -1,6 +1,6 @@
-mod windows;
-mod linux;
 mod android;
+mod linux;
+mod windows;
 
 #[cfg(target_os = "windows")]
 pub use windows::WindowsPlatform as CurrentPlatform;
@@ -11,12 +11,12 @@ pub use linux::LinuxPlatform as CurrentPlatform;
 #[cfg(target_os = "android")]
 pub use android::AndroidPlatform as CurrentPlatform;
 
+use crate::app::{self, app_window::ApplicationWindow};
 use tao::{
     dpi::LogicalSize,
     event_loop::EventLoop,
     window::{Theme, Window, WindowBuilder},
 };
-use crate::app::{self, app_window::ApplicationWindow};
 
 pub struct Platform<T> {
     platform_builder: T,
@@ -37,10 +37,9 @@ impl<T: PlatformBuilder> Platform<T> {
     fn build_window(&self, event_loop: &EventLoop<()>) -> Window {
         self.setup_window()
             .with_title("Rust Application Codebase")
-            .with_inner_size(LogicalSize::new(1024, 768))
-            .with_min_inner_size(LogicalSize::new(320, 240))
             .with_theme(Some(Theme::Dark))
-            .build(event_loop).unwrap()
+            .build(event_loop)
+            .unwrap()
     }
 
     pub fn build(&self, event_loop: EventLoop<()>) -> ApplicationWindow {
@@ -57,7 +56,23 @@ impl<T: PlatformBuilder> Platform<T> {
 
 pub trait PlatformBuilder {
     fn setup(&self) {}
+    fn with_desktop_default_size(&self) -> WindowBuilder {
+        self.setup_window()
+            .with_inner_size(LogicalSize::new(1024, 768))
+            .with_min_inner_size(LogicalSize::new(320, 240))
+    }
     fn setup_window(&self) -> WindowBuilder {
         WindowBuilder::new()
+    }
+}
+
+pub trait DesktopSizeBuilder {
+    fn with_desktop_default_size(self) -> WindowBuilder;
+}
+
+impl DesktopSizeBuilder for WindowBuilder {
+    fn with_desktop_default_size(self) -> WindowBuilder {
+        self.with_inner_size(LogicalSize::new(1024, 768))
+            .with_min_inner_size(LogicalSize::new(320, 240))
     }
 }

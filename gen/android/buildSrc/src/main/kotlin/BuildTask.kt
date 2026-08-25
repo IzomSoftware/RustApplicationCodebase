@@ -15,17 +15,7 @@ open class BuildTask : DefaultTask() {
 
     @TaskAction
     fun build() {
-        val rootDirRel = rootDirRel ?: throw GradleException("rootDirRel cannot be null")
         val target = target ?: throw GradleException("target cannot be null")
-        val release = release ?: throw GradleException("release cannot be null")
-
-        val abiName = when (target) {
-            "aarch64" -> "arm64-v8a"
-            "armv7"   -> "armeabi-v7a"
-            "i686"    -> "x86"
-            "x86_64"  -> "x86_64"
-            else      -> throw GradleException("Unknown target: $target")
-        }
         val rustTarget =
             when (target) {
                 "aarch64" -> "aarch64-linux-android"
@@ -42,7 +32,7 @@ open class BuildTask : DefaultTask() {
             args("--target")
             args(rustTarget)
             args("-o")
-            args("gen/android/app/src/main/jniLibs/$abiName")
+            args("gen/android/app/src/main/jniLibs")
             args("build")
         }.assertNormalExitValue()
     }
