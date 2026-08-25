@@ -72,4 +72,6 @@ class AndroidActivity : Activity() {
         super.onSaveInstanceState(outState)
         onActivitySaveInstanceState(this)
     }
+
+    fun getId(): Int = System.identityHashCode(this)
 }
