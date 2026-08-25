@@ -26,13 +26,21 @@ open class BuildTask : DefaultTask() {
             "x86_64"  -> "x86_64"
             else      -> throw GradleException("Unknown target: $target")
         }
+        val rustTarget =
+            when (target) {
+                "aarch64" -> "aarch64-linux-android"
+                "armv7" -> "armv7-linux-androideabi"
+                "i686" -> "i686-linux-android"
+                "x86_64" -> "x86_64-linux-android"
+                else -> throw GradleException("$target")
+            }
 
         project.exec {
             workingDir = File("../../../")
             executable("cargo")
             args("ndk")
             args("--target")
-            args(abiName)
+            args(rustTarget)
             args("-o")
             args("gen/android/app/src/main/jniLibs/$abiName")
             args("build")

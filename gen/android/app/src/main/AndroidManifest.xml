@@ -5,7 +5,7 @@
         android:theme="@style/AppTheme">
         <activity android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
-            android:name="net.izom.rust_application_codebase.MainActivity">
+            android:name="net.izom.rust_application_codebase.AndroidActivity">
             <meta-data android:name="android.app.lib_name" android:value="rust_application_codebase" />
             <meta-data android:name="android.app.func_name" android:value="ANativeActivity_onCreate" />
             <intent-filter>

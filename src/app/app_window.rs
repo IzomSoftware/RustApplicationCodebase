@@ -1,5 +1,4 @@
-use std::rc::Rc;
-use std::sync::{Mutex};
+use std::sync::{Arc, Mutex};
 use tao::event::{Event, WindowEvent};
 use tao::event_loop::{ControlFlow, EventLoop};
 use tao::window::Window;
@@ -22,7 +21,7 @@ impl ApplicationWindow {
     /// Runs the event_loop
     pub fn run(mut self) {
         let event_loop = self.event_loop.take().expect("event_loop already taken");
-        let app = Rc::new(Mutex::new(self));
+        let app = Arc::new(Mutex::new(self));
 
         event_loop.run(move |event, _event_loop, control_flow| {
             *control_flow = ControlFlow::Wait;
