@@ -31,7 +31,7 @@ unsafe fn _on_activity_create(
 ) {}
 
 #[cfg(target_os = "android")]
-tao::android_binding!(
+::tao::android_binding!(
     net_izom,
     rust_application_codebase,
     AndroidActivity,

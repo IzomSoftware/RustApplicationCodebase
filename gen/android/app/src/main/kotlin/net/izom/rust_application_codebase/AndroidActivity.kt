@@ -1,78 +1,75 @@
 package net.izom.rust_application_codebase
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 
-class AndroidActivity : android.app.Activity() {
+class AndroidActivity : Activity() {
     companion object {
         init {
             System.loadLibrary("rust_application_codebase")
         }
+        private var initialized = false
     }
 
-    private external fun onFirstActivityCreate()
-
-    private external fun onCreateActivity(activity: AndroidActivity)
-
-    private external fun onStartActivity(activity: AndroidActivity)
-
-    private external fun onResumeActivity(activity: AndroidActivity)
-
-    private external fun onPauseActivity(activity: AndroidActivity)
-
-    private external fun onStopActivity(activity: AndroidActivity)
-
-    private external fun onDestroyActivity(activity: AndroidActivity)
-
-    private external fun onWindowFocusChangedActivity(activity: AndroidActivity, focus: Int)
-
-    private external fun onLowMemory()
-
-    private external fun onNewIntentActivity(intent: Intent)
+    private external fun create(activity: AndroidActivity)
+    private external fun onActivityCreate(activity: AndroidActivity)
+    private external fun start(activity: AndroidActivity)
+    private external fun stop(activity: AndroidActivity)
+    private external fun resume(activity: AndroidActivity)
+    private external fun pause(activity: AndroidActivity)
+    private external fun onActivitySaveInstanceState(activity: AndroidActivity)
+    private external fun onActivityDestroy(activity: AndroidActivity)
+    private external fun onActivityLowMemory(activity: AndroidActivity)
+    private external fun onWindowFocusChanged(activity: AndroidActivity, hasFocus: Int)
+    override external fun onNewIntent(intent: Intent)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onFirstActivityCreate()
-        onCreateActivity(this)
+        if (!initialized) {
+            create(this)
+            initialized = true
+        }
+        onActivityCreate(this)
     }
 
     override fun onStart() {
         super.onStart()
-        onStartActivity(this)
+        start(this)
     }
 
     override fun onResume() {
         super.onResume()
-        onResumeActivity(this)
+        resume(this)
     }
 
     override fun onPause() {
         super.onPause()
-        onPauseActivity(this)
+        pause(this)
     }
 
     override fun onStop() {
         super.onStop()
-        onStopActivity(this)
+        stop(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        onDestroyActivity(this)
+        onActivityDestroy(this)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        onWindowFocusChangedActivity(this, if (hasFocus) 1 else 0)
+        onWindowFocusChanged(this, if (hasFocus) 1 else 0)
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        onLowMemoryAct()
+        onActivityLowMemory(this)
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        onNewIntentActivity(intent)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        onActivitySaveInstanceState(this)
     }
 }
